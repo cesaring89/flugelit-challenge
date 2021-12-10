@@ -20,6 +20,8 @@ jobs:
       - uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: 0.13.0
+        width:
+          terraform_wrapper: false
       - name: Download Go Modules
         working-directory: test
         run: go mod download
