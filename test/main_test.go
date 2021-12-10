@@ -1,10 +1,10 @@
 package main
 
 import (
+	"github.com/gruntwork-io/terratest/modules/terraform"
+	"github.com/stretchr/testify/assert"
 	"log"
 	"testing"
-
-	"github.com/gruntwork-io/terratest/modules/terraform"
 )
 
 func TestTerraform(t *testing.T) {
@@ -37,5 +37,13 @@ func TestTerraform(t *testing.T) {
 	}
 
 	t.Log(apply)
+
+	tags := "map[Environment:InfraTeam Name:Flugel]"
+
+	instanceTags := terraform.Output(t, options, "instanceTags")
+	bucketTags := terraform.Output(t, options, "bucketsTags")
+
+	assert.Equal(t, instanceTags, tags)
+	assert.Equal(t, bucketTags, tags)
 
 }
